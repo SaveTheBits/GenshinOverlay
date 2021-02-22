@@ -36,22 +36,23 @@ namespace GenshinOverlay {
                 b.Dispose();
                 using(Pix pixg = pixc.ConvertRGBToGray(0, 0, 0)) {
                     if(debug) { pixg.Save(Application.StartupPath + @"\debug\01_grayscale.png"); }
-                    using(Pix pixs = pixg.ScaleGrayLI(Config.OCRScaleFactor, Config.OCRScaleFactor)) {
+                    using(Pix pixs = pixg.Scale(Config.OCRScaleFactor, Config.OCRScaleFactor)) { //was ScaleGrayLI
                         if(debug) { pixs.Save(Application.StartupPath + @"\debug\02_scale.png"); }
                         //pix = pix.UnsharpMaskingGray(5, 2.5f); //issues with light text on light bg
                         using(Pix pixb = pixs.BinarizeOtsuAdaptiveThreshold(2000, 2000, 0, 0, 0.0f)) {
                             if(debug) { pixb.Save(Application.StartupPath + @"\debug\03_binarize.png"); }
-                            float pixAvg = pixb.AverageOnLine(0, 0, pixb.Width - 1, 0, 1);
+                            float pixAvg = 0;
+                            /* pixAvg = pixb.AverageOnLine(0, 0, pixb.Width - 1, 0, 1);
                             pixAvg += pixb.AverageOnLine(0, pixb.Height - 1, pixb.Width - 1, pixb.Height - 1, 1);
                             pixAvg += pixb.AverageOnLine(0, 0, 0, pixb.Height - 1, 1);
-                            pixAvg += pixb.AverageOnLine(pixb.Width - 1, 0, pixb.Width - 1, pixb.Height - 1, 1);
+                            pixAvg += pixb.AverageOnLine(pixb.Width - 1, 0, pixb.Width - 1, pixb.Height - 1, 1); */
                             pixAvg /= 4.0f;
-                            using(Pix pixi = pixAvg > 0.5f ? pixb.Invert() : pixb) {
+                            using(Pix pixi = pixAvg > 0.5f ? pixb : pixb) { //pixb.Invert()
                                 if(debug) { pixi.Save(Application.StartupPath + $@"\debug\04_invert_{pixAvg > 0.5f}.png"); }
-                                using(Pix pixn = pixi.SelectBySize(Config.OCRNoiseSize, Config.OCRNoiseSize, Config.OCRNoiseConnectivity, Config.OCRNoiseType, Config.OCRNoiseRelation)) {
+                                using(Pix pixn = pixi.Clone()) { //pixi.SelectBySize(Config.OCRNoiseSize, Config.OCRNoiseSize, Config.OCRNoiseConnectivity, Config.OCRNoiseType, Config.OCRNoiseRelation)) {
                                     if(debug) { pixn.Save(Application.StartupPath + @"\debug\05_removenoise.png"); }
                                     //pixn.ClipToForeground(IntPtr.Zero);
-                                    using(Pix pix = pixn.AddBorder(Config.OCRPadding, 0)) {
+                                    using(Pix pix = pixn.Clone()) { //pixn.AddBorder(Config.OCRPadding, 0)
                                         if(debug) { pix.Save(Application.StartupPath + @"\debug\06_border.png"); }
                                         pix.XRes = 300;
                                         pix.YRes = 300;
