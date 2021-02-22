@@ -248,8 +248,8 @@
             this.BGColourText.Name = "BGColourText";
             this.BGColourText.PasswordChar = '\0';
             this.BGColourText.ReadOnly = true;
-            this.BGColourText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.BGColourText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
+//            this.BGColourText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+//            this.BGColourText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
             this.BGColourText.SelectedText = "";
             this.BGColourText.SelectionLength = 0;
             this.BGColourText.SelectionStart = 0;
@@ -265,7 +265,7 @@
             this.BGColourText.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.BGColourText.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.BGColourText.TextChanged += new System.EventHandler(this.BGColourText_TextChanged);
-            this.BGColourText.Click += new System.EventHandler(this.BGColourText_Click);
+//            this.BGColourText.Click += new System.EventHandler(this.BGColourText_Click);
             // 
             // FG2ColourText
             // 
@@ -287,8 +287,8 @@
             this.FG2ColourText.Name = "FG2ColourText";
             this.FG2ColourText.PasswordChar = '\0';
             this.FG2ColourText.ReadOnly = true;
-            this.FG2ColourText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.FG2ColourText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
+//            this.FG2ColourText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+//            this.FG2ColourText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
             this.FG2ColourText.SelectedText = "";
             this.FG2ColourText.SelectionLength = 0;
             this.FG2ColourText.SelectionStart = 0;
@@ -304,7 +304,7 @@
             this.FG2ColourText.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.FG2ColourText.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.FG2ColourText.TextChanged += new System.EventHandler(this.FG2ColourText_TextChanged);
-            this.FG2ColourText.Click += new System.EventHandler(this.FG2ColourText_Click);
+//            this.FG2ColourText.Click += new System.EventHandler(this.FG2ColourText_Click);
             // 
             // FG1ColourText
             // 
@@ -326,8 +326,8 @@
             this.FG1ColourText.Name = "FG1ColourText";
             this.FG1ColourText.PasswordChar = '\0';
             this.FG1ColourText.ReadOnly = true;
-            this.FG1ColourText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.FG1ColourText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
+//           this.FG1ColourText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+//           this.FG1ColourText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
             this.FG1ColourText.SelectedText = "";
             this.FG1ColourText.SelectionLength = 0;
             this.FG1ColourText.SelectionStart = 0;
@@ -343,7 +343,7 @@
             this.FG1ColourText.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.FG1ColourText.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.FG1ColourText.TextChanged += new System.EventHandler(this.FG1ColourText_TextChanged);
-            this.FG1ColourText.Click += new System.EventHandler(this.FG1ColourText_Click);
+//            this.FG1ColourText.Click += new System.EventHandler(this.FG1ColourText_Click);
             // 
             // CooldownBarsXPosTrack
             // 
@@ -468,8 +468,8 @@
             this.SelColourText.Name = "SelColourText";
             this.SelColourText.PasswordChar = '\0';
             this.SelColourText.ReadOnly = true;
-            this.SelColourText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.SelColourText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
+//            this.SelColourText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+//            this.SelColourText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
             this.SelColourText.SelectedText = "";
             this.SelColourText.SelectionLength = 0;
             this.SelColourText.SelectionStart = 0;
@@ -484,7 +484,7 @@
             this.SelColourText.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.SelColourText.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.SelColourText.TextChanged += new System.EventHandler(this.SelColourText_TextChanged);
-            this.SelColourText.Click += new System.EventHandler(this.SelColourText_Click);
+//            this.SelColourText.Click += new System.EventHandler(this.SelColourText_Click);
             // 
             // CooldownBarsSelOffsetTrack
             // 
@@ -519,8 +519,8 @@
             this.CooldownBarTextReadyText.MaxLength = 32767;
             this.CooldownBarTextReadyText.Name = "CooldownBarTextReadyText";
             this.CooldownBarTextReadyText.PasswordChar = '\0';
-            this.CooldownBarTextReadyText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.CooldownBarTextReadyText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
+//            this.CooldownBarTextReadyText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+//            this.CooldownBarTextReadyText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
             this.CooldownBarTextReadyText.SelectedText = "";
             this.CooldownBarTextReadyText.SelectionLength = 0;
             this.CooldownBarTextReadyText.SelectionStart = 0;
@@ -584,8 +584,8 @@
             this.BGTColourText.Name = "BGTColourText";
             this.BGTColourText.PasswordChar = '\0';
             this.BGTColourText.ReadOnly = true;
-            this.BGTColourText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.BGTColourText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
+//            this.BGTColourText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+//            this.BGTColourText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
             this.BGTColourText.SelectedText = "";
             this.BGTColourText.SelectionLength = 0;
             this.BGTColourText.SelectionStart = 0;
@@ -601,7 +601,7 @@
             this.BGTColourText.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.BGTColourText.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.BGTColourText.TextChanged += new System.EventHandler(this.BGTColourText_TextChanged);
-            this.BGTColourText.Click += new System.EventHandler(this.BGTColourText_Click);
+//            this.BGTColourText.Click += new System.EventHandler(this.BGTColourText_Click);
             // 
             // CooldownBarTextDecimalTrack
             // 
@@ -680,8 +680,8 @@
             this.FG2TColourText.Name = "FG2TColourText";
             this.FG2TColourText.PasswordChar = '\0';
             this.FG2TColourText.ReadOnly = true;
-            this.FG2TColourText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.FG2TColourText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
+//            this.FG2TColourText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+//            this.FG2TColourText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
             this.FG2TColourText.SelectedText = "";
             this.FG2TColourText.SelectionLength = 0;
             this.FG2TColourText.SelectionStart = 0;
@@ -697,7 +697,7 @@
             this.FG2TColourText.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.FG2TColourText.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.FG2TColourText.TextChanged += new System.EventHandler(this.FG2TColourText_TextChanged);
-            this.FG2TColourText.Click += new System.EventHandler(this.FG2TColourText_Click);
+//            this.FG2TColourText.Click += new System.EventHandler(this.FG2TColourText_Click);
             // 
             // FG1TColourText
             // 
@@ -719,8 +719,8 @@
             this.FG1TColourText.Name = "FG1TColourText";
             this.FG1TColourText.PasswordChar = '\0';
             this.FG1TColourText.ReadOnly = true;
-            this.FG1TColourText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.FG1TColourText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
+//            this.FG1TColourText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+//            this.FG1TColourText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
             this.FG1TColourText.SelectedText = "";
             this.FG1TColourText.SelectionLength = 0;
             this.FG1TColourText.SelectionStart = 0;
@@ -736,7 +736,7 @@
             this.FG1TColourText.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.FG1TColourText.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.FG1TColourText.TextChanged += new System.EventHandler(this.FG1TColourText_TextChanged);
-            this.FG1TColourText.Click += new System.EventHandler(this.FG1TColourText_Click);
+//            this.FG1TColourText.Click += new System.EventHandler(this.FG1TColourText_Click);
             // 
             // SelTColourText
             // 
@@ -758,8 +758,8 @@
             this.SelTColourText.Name = "SelTColourText";
             this.SelTColourText.PasswordChar = '\0';
             this.SelTColourText.ReadOnly = true;
-            this.SelTColourText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.SelTColourText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
+//            this.SelTColourText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+//            this.SelTColourText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
             this.SelTColourText.SelectedText = "";
             this.SelTColourText.SelectionLength = 0;
             this.SelTColourText.SelectionStart = 0;
@@ -774,7 +774,7 @@
             this.SelTColourText.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.SelTColourText.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.SelTColourText.TextChanged += new System.EventHandler(this.SelTColourText_TextChanged);
-            this.SelTColourText.Click += new System.EventHandler(this.SelTColourText_Click);
+//            this.SelTColourText.Click += new System.EventHandler(this.SelTColourText_Click);
             // 
             // LabelCooldownText2
             // 
@@ -1188,8 +1188,8 @@
             this.CooldownOverride4Text.MaxLength = 32767;
             this.CooldownOverride4Text.Name = "CooldownOverride4Text";
             this.CooldownOverride4Text.PasswordChar = '\0';
-            this.CooldownOverride4Text.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.CooldownOverride4Text.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
+//            this.CooldownOverride4Text.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+//            this.CooldownOverride4Text.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
             this.CooldownOverride4Text.SelectedText = "";
             this.CooldownOverride4Text.SelectionLength = 0;
             this.CooldownOverride4Text.SelectionStart = 0;
@@ -1226,8 +1226,8 @@
             this.CooldownOverride3Text.MaxLength = 32767;
             this.CooldownOverride3Text.Name = "CooldownOverride3Text";
             this.CooldownOverride3Text.PasswordChar = '\0';
-            this.CooldownOverride3Text.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.CooldownOverride3Text.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
+//            this.CooldownOverride3Text.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+//            this.CooldownOverride3Text.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
             this.CooldownOverride3Text.SelectedText = "";
             this.CooldownOverride3Text.SelectionLength = 0;
             this.CooldownOverride3Text.SelectionStart = 0;
@@ -1264,8 +1264,8 @@
             this.CooldownOverride2Text.MaxLength = 32767;
             this.CooldownOverride2Text.Name = "CooldownOverride2Text";
             this.CooldownOverride2Text.PasswordChar = '\0';
-            this.CooldownOverride2Text.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.CooldownOverride2Text.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
+//            this.CooldownOverride2Text.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+//            this.CooldownOverride2Text.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
             this.CooldownOverride2Text.SelectedText = "";
             this.CooldownOverride2Text.SelectionLength = 0;
             this.CooldownOverride2Text.SelectionStart = 0;
@@ -1302,8 +1302,8 @@
             this.CooldownOverride1Text.MaxLength = 32767;
             this.CooldownOverride1Text.Name = "CooldownOverride1Text";
             this.CooldownOverride1Text.PasswordChar = '\0';
-            this.CooldownOverride1Text.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.CooldownOverride1Text.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
+//            this.CooldownOverride1Text.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+//            this.CooldownOverride1Text.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
             this.CooldownOverride1Text.SelectedText = "";
             this.CooldownOverride1Text.SelectionLength = 0;
             this.CooldownOverride1Text.SelectionStart = 0;
@@ -1374,7 +1374,7 @@
             this.DebugText.Multiline = true;
             this.DebugText.Name = "DebugText";
             this.DebugText.PasswordChar = '\0';
-            this.DebugText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
+//            this.DebugText.ScrollBarsNative = System.Windows.Forms.ScrollBars.None;
             this.DebugText.SelectedText = "";
             this.DebugText.SelectionLength = 0;
             this.DebugText.SelectionStart = 0;

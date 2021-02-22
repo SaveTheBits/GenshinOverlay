@@ -26,7 +26,7 @@ namespace GenshinOverlay {
             ConfigPanel.Visible = false;
 
             if(!IsAdmin()) {
-                DialogResult res = MetroMessageBox.Show(this, $"\nGenshinOverlay must be started as Administrator.", "Genshin Overlay - Error", MessageBoxButtons.OK, Theme, MessageBoxDefaultButton.Button1, 135);
+                DialogResult res = MetroMessageBox.Show(this, $"\nGenshinOverlay must be started as Administrator.", "Genshin Overlay - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, 135);
                 if(res == DialogResult.OK) {
                     Environment.Exit(0);
                 }
@@ -121,7 +121,7 @@ namespace GenshinOverlay {
         private void ConfigureOverlayButton_Click(object sender, EventArgs e) {
             Process proc = Process.GetProcesses().Where(x => x.ProcessName == Config.ProcessName).FirstOrDefault();
             if(proc == null) {
-                MetroMessageBox.Show(this, $"\nGenshin Impact must be running first.", "Process Error", MessageBoxButtons.OK, Theme, MessageBoxDefaultButton.Button1, 135);
+                MetroMessageBox.Show(this, $"\nGenshin Impact must be running first.", "Process Error", MessageBoxButtons.OK, MessageBoxIcon.Error, 135);
                 return;
             } else {
                 OverlayWindow.GenshinHandle = proc.MainWindowHandle;
@@ -129,7 +129,7 @@ namespace GenshinOverlay {
 
             User32.GetClientRect(OverlayWindow.GenshinHandle, out User32.RECT rect);
             if(rect.Empty()) {
-                MetroMessageBox.Show(this, $"\nGenshin Impact client area could not be detected.\n> Please ensure Genshin Impact is not minimized.\n> Only windowed/fullscreen borderless are supported.", "Client Error", MessageBoxButtons.OK, Theme, MessageBoxDefaultButton.Button1, 180);
+                MetroMessageBox.Show(this, $"\nGenshin Impact client area could not be detected.\n> Please ensure Genshin Impact is not minimized.\n> Only windowed/fullscreen borderless are supported.", "Client Error", MessageBoxButtons.OK, MessageBoxIcon.Error, 180);
                 return;
             }
 
@@ -181,12 +181,12 @@ namespace GenshinOverlay {
             }
             Process proc = Process.GetProcesses().Where(x => x.ProcessName == Config.ProcessName).FirstOrDefault();
             if(proc == null) {
-                MetroMessageBox.Show(this, $"\nGenshin Impact must be running first.", "Process Error", MessageBoxButtons.OK, Theme, MessageBoxDefaultButton.Button1, 135);
+                MetroMessageBox.Show(this, $"\nGenshin Impact must be running first.", "Process Error", MessageBoxButtons.OK, MessageBoxIcon.Error, 135);
                 return;
             }
 
             if(Config.CooldownTextLocation == Point.Empty || Config.PartyNumLocations["4 #1"] == Point.Empty) {
-                MetroMessageBox.Show(this, $"\nMust first setup cooldown text/party location before debugging.", "Overlay Error", MessageBoxButtons.OK, Theme, MessageBoxDefaultButton.Button1, 135);
+                MetroMessageBox.Show(this, $"\nMust first setup cooldown text/party location before debugging.", "Overlay Error", MessageBoxButtons.OK, MessageBoxIcon.Error, 135);
                 return;
             }
 
@@ -202,27 +202,27 @@ namespace GenshinOverlay {
                 IMG.Capture(proc.MainWindowHandle, captureLocation, captureSize, ref ocr, true);
                 long time = sw.ElapsedMilliseconds;
                 if(!isMulti || (isMulti && ocr.Cooldown > 0)) {
-                    this.UI(() => {
+       /*             this.UI(() => {
                         DebugText.Text = $"Party Size (1 to 4): {Party.PartySize}\r\n" +
                             $"Selected Character (1 to 4): Slot#{sel + 1}\r\n" +
                             $"OCR Text Detected: {ocr.Text}\r\n" +
                             $"Parsed Cooldown: {ocr.Cooldown}\r\n" +
                             $"Confidence: {ocr.Confidence * 100}% Required: {Config.OCRMinimumConfidence * 100}%\r\n" +
                             $"Iteration #{ocr.Iterations} ({time}ms @ {Config.CooldownOCRRateInMs}ms rate)";
-                    });
+                    });*/
                 } else {
                     while(ocr.Cooldown == 0 && ocr.Iterations < 1000 && OverlayWindow.IsDebug) {
                         Thread.Sleep(Config.CooldownOCRRateInMs);
                         IMG.Capture(proc.MainWindowHandle, captureLocation, captureSize, ref ocr, false);
 
-                        this.UI(() => {
+/*                        this.UI(() => {
                             DebugText.Text = $"Party Size (1 to 4): {Party.PartySize}\r\n" +
                                 $"Selected Character (1 to 4): Slot#{sel + 1}\r\n" +
                                 $"OCR Text Detected: {ocr.Text}\r\n" +
                                 $"Parsed Cooldown: {ocr.Cooldown}\r\n" +
                                 $"Confidence: {ocr.Confidence * 100}% Required: {Config.OCRMinimumConfidence * 100}%\r\n" +
                                 $"Iteration #{ocr.Iterations} ({sw.ElapsedMilliseconds}ms @ {Config.CooldownOCRRateInMs}ms rate)";
-                        });
+                        });*/
                     }
                 }
                 sw.Stop();
@@ -375,7 +375,7 @@ namespace GenshinOverlay {
         }
 
         #region "Config Click Events":
-        private bool colorDialogOpen = false;
+/*        private bool colorDialogOpen = false;
         private void FG1ColourText_Click(object sender, EventArgs e) {
             if(colorDialogOpen) { return; }
             colorDialogOpen = true;
@@ -455,7 +455,8 @@ namespace GenshinOverlay {
             }
             colorDialogOpen = false;
             FocusMe();
-        }
+        } 
+        */
         private void AutoButton_Click(object sender, EventArgs e) {
             User32.GetClientRect(OverlayWindow.GenshinHandle, out User32.RECT rect);
             OverlayTemplateValues(rect.Size, 100);
