@@ -7,15 +7,21 @@ using System.Linq;
 using System.Security.Principal;
 using System.Threading;
 using System.Windows.Forms;
+
+using SharpDX.XInput;
 using MetroFramework;
 using MetroFramework.Controls;
 using MetroFramework.Forms;
 
 namespace GenshinOverlay {
     public partial class MainWindow : MetroForm {
+        private static Controller Controller;
+        private State ControllerStateNew;
+        private State ControllerStateOld;
+        
         private OverlayWindow OverlayWindow;
         private KeyboardHook KeyHook;
-
+        
         private WindowHook WinHook;
 
         public MainWindow() {
@@ -44,7 +50,28 @@ namespace GenshinOverlay {
             KeyHook = new KeyboardHook(new List<Keys>() {  Keys.E });
             KeyHook.KeyUp += KeyHook_KeyUp;
 
-            if(Config.CooldownTextLocation == Point.Empty || Config.PartyNumLocations["4 #1"] == Point.Empty) {
+            Controller = new Controller(UserIndex.One);
+            if (Controller.IsConnected)
+            {
+                new Thread(() => {
+                    while (true)
+                    {
+                        Thread.Sleep(100);
+                        ControllerStateOld = ControllerStateNew;
+                        ControllerStateNew = Controller.GetState();
+
+                        if (OverlayWindow.GenshinHandle == IntPtr.Zero) { continue; }
+                        if (Config.CooldownTextLocation == Point.Empty || Config.PartyNumLocations["4 #1"] == Point.Empty) { continue; }
+
+                        if (ControllerStateOld.Gamepad.RightTrigger < ControllerStateNew.Gamepad.RightTrigger)
+                        {
+                            SkillKeyPressed();
+                        }
+                    }
+                }).Start();
+            }
+
+            if (Config.CooldownTextLocation == Point.Empty || Config.PartyNumLocations["4 #1"] == Point.Empty) {
                 ConfigureOverlayMessage.Visible = true;
                 ConfigureOverlayButton.Location = new Point(ConfigureOverlayButton.Location.X, ConfigureOverlayButton.Location.Y + 20);
             } else {
@@ -66,48 +93,64 @@ namespace GenshinOverlay {
             }
         }
 
+        private void SkillKeyPressed()
+        {
+            if (Party.SelectedCharacter == -1 || Party.Characters[Party.SelectedCharacter].Cooldown > Config.CooldownMinimumReapply || Party.Characters[Party.SelectedCharacter].Processing) { return; }
+            int c = Party.SelectedCharacter;
+            Party.Characters[c].Processing = true;
+
+            new Thread(() => {
+                Thread.Sleep(Config.CooldownOCRRateInMs);
+                Point captureLocation = new Point(Config.CooldownTextLocation.X, Config.CooldownTextLocation.Y);
+                Size captureSize = new Size(Config.CooldownTextSize.Width, Config.CooldownTextSize.Height);
+                Point captureLocation2 = new Point(Config.CooldownText2LocationX, Config.CooldownTextLocation.Y);
+
+                IMG.OCRCapture ocr = new IMG.OCRCapture();
+                IMG.Capture(OverlayWindow.CurrentHandle, captureLocation, captureSize, ref ocr);
+                while (c == Party.SelectedCharacter && ocr.Cooldown == 0)
+                {
+                    Thread.Sleep(Config.CooldownOCRRateInMs);
+                    IMG.Capture(OverlayWindow.CurrentHandle, captureLocation, captureSize, ref ocr);
+                    if (ocr.Cooldown == 0 && Config.CooldownText2LocationX != 0)
+                    {
+                        IMG.Capture(OverlayWindow.CurrentHandle, captureLocation2, captureSize, ref ocr);
+                    }
+                }
+                if (c != Party.SelectedCharacter)
+                {
+                    Party.Characters[c].Cooldown = 0;
+                    Party.Characters[c].Max = 0;
+                }
+                else
+                {
+                    if (Config.CooldownOverride[c] > 0)
+                    {
+                        if (ocr.Cooldown < Config.CooldownMinimumOverride)
+                        {
+                            Party.Characters[c].Cooldown = Config.CooldownOverride[c];
+                            Party.Characters[c].Max = Config.CooldownOverride[c];
+                        }
+                        else
+                        {
+                            Party.Characters[c].Cooldown = ocr.Cooldown;
+                            Party.Characters[c].Max = ocr.Cooldown;
+                        }
+                    }
+                    else
+                    {
+                        Party.Characters[c].Cooldown = ocr.Cooldown + Config.CooldownOffset;
+                        Party.Characters[c].Max = Party.Characters[c].Cooldown;
+                    }
+                }
+                Party.Characters[c].Processing = false;
+            }).Start();
+        }
+
         private void KeyHook_KeyUp(object sender, KeyHookEventArgs e) {
             if(OverlayWindow.GenshinHandle == IntPtr.Zero) { return; }
             if(Config.CooldownTextLocation == Point.Empty || Config.PartyNumLocations["4 #1"] == Point.Empty) { return; }
             if(e.Key == Keys.E) {
-                if(Party.SelectedCharacter == -1 || Party.Characters[Party.SelectedCharacter].Cooldown > Config.CooldownMinimumReapply || Party.Characters[Party.SelectedCharacter].Processing) { return; }
-                int c = Party.SelectedCharacter;
-                Party.Characters[c].Processing = true;
-
-                new Thread(() => {
-                    Thread.Sleep(Config.CooldownOCRRateInMs);
-                    Point captureLocation = new Point(Config.CooldownTextLocation.X, Config.CooldownTextLocation.Y);
-                    Size captureSize = new Size(Config.CooldownTextSize.Width, Config.CooldownTextSize.Height);
-                    Point captureLocation2 = new Point(Config.CooldownText2LocationX, Config.CooldownTextLocation.Y);
-
-                    IMG.OCRCapture ocr = new IMG.OCRCapture();
-                    IMG.Capture(OverlayWindow.CurrentHandle, captureLocation, captureSize, ref ocr);
-                    while(c == Party.SelectedCharacter && ocr.Cooldown == 0) {
-                        Thread.Sleep(Config.CooldownOCRRateInMs);
-                        IMG.Capture(OverlayWindow.CurrentHandle, captureLocation, captureSize, ref ocr);
-                        if(ocr.Cooldown == 0 && Config.CooldownText2LocationX != 0) {
-                            IMG.Capture(OverlayWindow.CurrentHandle, captureLocation2, captureSize, ref ocr);
-                        }
-                    }
-                    if(c != Party.SelectedCharacter) {
-                        Party.Characters[c].Cooldown = 0;
-                        Party.Characters[c].Max = 0;
-                    } else {
-                        if(Config.CooldownOverride[c] > 0) { 
-                            if(ocr.Cooldown < Config.CooldownMinimumOverride) {
-                                Party.Characters[c].Cooldown = Config.CooldownOverride[c];
-                                Party.Characters[c].Max = Config.CooldownOverride[c];
-                            } else {
-                                Party.Characters[c].Cooldown = ocr.Cooldown;
-                                Party.Characters[c].Max = ocr.Cooldown;
-                            }
-                        } else {
-                            Party.Characters[c].Cooldown = ocr.Cooldown + Config.CooldownOffset;
-                            Party.Characters[c].Max = Party.Characters[c].Cooldown;
-                        }
-                    }
-                    Party.Characters[c].Processing = false;
-                }).Start();
+                SkillKeyPressed();
             }
         }
 
