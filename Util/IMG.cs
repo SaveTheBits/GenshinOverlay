@@ -29,9 +29,9 @@ namespace GenshinOverlay {
         public static void Capture(IntPtr handle, Point pos, Size size, ref OCRCapture ocrCapture, bool debug = false) {
             if(handle == IntPtr.Zero) { return; }
             Bitmap b = CaptureWindowArea(handle, pos, size);
-            if(b == null) { return; }
+            if (b == null) { return; }
             if(debug) { Directory.CreateDirectory(Application.StartupPath + @"\debug"); }
-            if(debug) { b.Save(Application.StartupPath + @"\debug\00_input.png"); }
+            if(debug) { lock (MainWindow.ImageLock) { b.Save(Application.StartupPath + @"\debug\00_input.png"); } }
             using(Pix pixc = PixConverter.ToPix(b)) {
                 b.Dispose();
                 using(Pix pixg = pixc.ConvertRGBToGray(0, 0, 0)) {
@@ -53,7 +53,7 @@ namespace GenshinOverlay {
                                     if(debug) { pixn.Save(Application.StartupPath + @"\debug\05_removenoise.png"); }
                                     //pixn.ClipToForeground(IntPtr.Zero);
                                     using(Pix pix = pixn.Clone()) { //pixn.AddBorder(Config.OCRPadding, 0)
-                                        if(debug) { pix.Save(Application.StartupPath + @"\debug\06_border.png"); }
+                                        if(debug) { lock (MainWindow.ImageLock) { pix.Save(Application.StartupPath + @"\debug\06_border.png"); } }
                                         pix.XRes = 300;
                                         pix.YRes = 300;
 

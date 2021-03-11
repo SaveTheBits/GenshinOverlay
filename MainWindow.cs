@@ -24,13 +24,28 @@ namespace GenshinOverlay {
         
         private WindowHook WinHook;
 
+        public static object ImageLock = new object();
+
         public MainWindow() {
             InitializeComponent();
+            tabControl.SelectedIndexChanged += new EventHandler(SelectedTabIndexChanged);
         }
-        
-        private void MainWindow_Load(object sender, EventArgs e) {
-            ConfigPanel.Visible = false;
 
+        private void SelectedTabIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl.SelectedTab.Text == "Configure")
+            {
+//                ConfigPanel.Visible = true;
+                OverlayWindow.IsConfiguring = true;
+            }
+            else
+            {
+//                ConfigPanel.Visible = false;
+                OverlayWindow.IsConfiguring = false;
+            }
+        }
+
+        private void MainWindow_Load(object sender, EventArgs e) {
             if(!IsAdmin()) {
                 DialogResult res = MetroMessageBox.Show(this, $"\nGenshinOverlay must be started as Administrator.", "Genshin Overlay - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, 135);
                 if(res == DialogResult.OK) {
@@ -72,10 +87,10 @@ namespace GenshinOverlay {
             }
 
             if (Config.CooldownTextLocation == Point.Empty || Config.PartyNumLocations["4 #1"] == Point.Empty) {
-                ConfigureOverlayMessage.Visible = true;
-                ConfigureOverlayButton.Location = new Point(ConfigureOverlayButton.Location.X, ConfigureOverlayButton.Location.Y + 20);
+//                ConfigureOverlayMessage.Visible = true;
+//                ConfigureOverlayButton.Location = new Point(ConfigureOverlayButton.Location.X, ConfigureOverlayButton.Location.Y + 20);
             } else {
-                ConfigureOverlayMessage.Visible = false;
+//                ConfigureOverlayMessage.Visible = false;
             }
 
             Activate();
@@ -176,13 +191,13 @@ namespace GenshinOverlay {
                 return;
             }
 
-            OverlayWindow.IsConfiguring = true;
-            if(ConfigureOverlayMessage.Visible) {
-                ConfigureOverlayMessage.Visible = false;
-                ConfigureOverlayButton.Location = new Point(ConfigureOverlayButton.Location.X, ConfigureOverlayButton.Location.Y - 20);
-            }
-            MainPanel.Visible = false;
-            ConfigPanel.Visible = true;
+//            OverlayWindow.IsConfiguring = true;
+//            if(ConfigureOverlayMessage.Visible) {
+//                ConfigureOverlayMessage.Visible = false;
+//                ConfigureOverlayButton.Location = new Point(ConfigureOverlayButton.Location.X, ConfigureOverlayButton.Location.Y - 20);
+//            }
+//            MainPanel.Visible = false;
+//            ConfigPanel.Visible = true;
 
             CooldownBarsYOffsetText.ForeColor = Color.FromArgb(255, 255, 0, 0);
 
@@ -222,6 +237,7 @@ namespace GenshinOverlay {
                 OverlayWindow.IsDebug = false;
                 return;
             }
+
             Process proc = Process.GetProcesses().Where(x => x.ProcessName == Config.ProcessName).FirstOrDefault();
             if(proc == null) {
                 MetroMessageBox.Show(this, $"\nGenshin Impact must be running first.", "Process Error", MessageBoxButtons.OK, MessageBoxIcon.Error, 135);
@@ -233,45 +249,67 @@ namespace GenshinOverlay {
                 return;
             }
 
-            new Thread(() => {
+            new Thread((DebugTextDelegate) => {
                 OverlayWindow.IsDebug = true;
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
                 int sel = Party.GetSelectedCharacter(proc.MainWindowHandle);
                 Point captureLocation = new Point(Config.CooldownTextLocation.X, Config.CooldownTextLocation.Y);
                 Size captureSize = new Size(Config.CooldownTextSize.Width, Config.CooldownTextSize.Height);
-
                 IMG.OCRCapture ocr = new IMG.OCRCapture();
                 IMG.Capture(proc.MainWindowHandle, captureLocation, captureSize, ref ocr, true);
                 long time = sw.ElapsedMilliseconds;
                 if(!isMulti || (isMulti && ocr.Cooldown > 0)) {
-       /*             this.UI(() => {
-                        DebugText.Text = $"Party Size (1 to 4): {Party.PartySize}\r\n" +
-                            $"Selected Character (1 to 4): Slot#{sel + 1}\r\n" +
-                            $"OCR Text Detected: {ocr.Text}\r\n" +
-                            $"Parsed Cooldown: {ocr.Cooldown}\r\n" +
-                            $"Confidence: {ocr.Confidence * 100}% Required: {Config.OCRMinimumConfidence * 100}%\r\n" +
-                            $"Iteration #{ocr.Iterations} ({time}ms @ {Config.CooldownOCRRateInMs}ms rate)";
-                    });*/
+                    lock (MainWindow.ImageLock)
+                    {
+                        this.debugPictureBox0.Image = new Bitmap(Application.StartupPath + @"\debug\00_input.png").Clone() as Bitmap;
+                        this.debugPictureBox1.Image = new Bitmap(Application.StartupPath + @"\debug\06_border.png").Clone() as Bitmap;
+                    }
+                    SetDebugText($"Party Size (1 to 4): {Party.PartySize}\r\n" +
+                                 $"Selected Character (1 to 4): Slot#{sel + 1}\r\n" +
+                                 $"OCR Text Detected: {ocr.Text}\r\n" +
+                                 $"Parsed Cooldown: {ocr.Cooldown}\r\n" +
+                                 $"Confidence: {ocr.Confidence * 100}% Required: {Config.OCRMinimumConfidence * 100}%\r\n" +
+                                 $"Iteration #{ocr.Iterations} ({time}ms @ {Config.CooldownOCRRateInMs}ms rate)");
                 } else {
-                    while(ocr.Cooldown == 0 && ocr.Iterations < 1000 && OverlayWindow.IsDebug) {
+                    while (ocr.Cooldown == 0 && ocr.Iterations < 1000 && OverlayWindow.IsDebug) {
                         Thread.Sleep(Config.CooldownOCRRateInMs);
                         IMG.Capture(proc.MainWindowHandle, captureLocation, captureSize, ref ocr, false);
-
-/*                        this.UI(() => {
-                            DebugText.Text = $"Party Size (1 to 4): {Party.PartySize}\r\n" +
-                                $"Selected Character (1 to 4): Slot#{sel + 1}\r\n" +
-                                $"OCR Text Detected: {ocr.Text}\r\n" +
-                                $"Parsed Cooldown: {ocr.Cooldown}\r\n" +
-                                $"Confidence: {ocr.Confidence * 100}% Required: {Config.OCRMinimumConfidence * 100}%\r\n" +
-                                $"Iteration #{ocr.Iterations} ({sw.ElapsedMilliseconds}ms @ {Config.CooldownOCRRateInMs}ms rate)";
-                        });*/
+                        lock (MainWindow.ImageLock)
+                        {
+                            this.debugPictureBox0.Image = new Bitmap(Application.StartupPath + @"\debug\00_input.png").Clone() as Bitmap;
+                            this.debugPictureBox1.Image = new Bitmap(Application.StartupPath + @"\debug\06_border.png").Clone() as Bitmap;
+                        }
+                        SetDebugText($"Party Size (1 to 4): {Party.PartySize}\r\n" +
+                                     $"Selected Character (1 to 4): Slot#{sel + 1}\r\n" +
+                                     $"OCR Text Detected: {ocr.Text}\r\n" +
+                                     $"Parsed Cooldown: {ocr.Cooldown}\r\n" +
+                                     $"Confidence: {ocr.Confidence * 100}% Required: {Config.OCRMinimumConfidence * 100}%\r\n" +
+                                     $"Iteration #{ocr.Iterations} ({sw.ElapsedMilliseconds}ms @ {Config.CooldownOCRRateInMs}ms rate)");
                     }
                 }
                 sw.Stop();
 
                 OverlayWindow.IsDebug = false;
             }).Start();
+        }
+
+        delegate void SetDebugTextCallback(string text);
+
+        private void SetDebugText(string text)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (this.DebugText.InvokeRequired)
+            {
+                SetDebugTextCallback d = new SetDebugTextCallback(SetDebugText);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.DebugText.Text = text;
+            }
         }
 
         private void OverlayTemplateValues(Size resolution, int scale) {
@@ -506,10 +544,10 @@ namespace GenshinOverlay {
             UpdateControlValues();
         }
         private void SaveButton_Click(object sender, EventArgs e) {
-            MainPanel.Visible = true;
-            ConfigPanel.Visible = false;
+            // MainPanel.Visible = true;
+//            ConfigPanel.Visible = false;
             Config.Save();
-            OverlayWindow.IsConfiguring = false;
+//            OverlayWindow.IsConfiguring = false;
         }
 
         private void ToggleTheme_CheckedChanged(object sender, EventArgs e) {

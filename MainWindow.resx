@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="ConfigToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>279, 18</value>
-  </metadata>
   <metadata name="MStyleManager.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -129,97 +126,25 @@
   <metadata name="ConfigToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>279, 18</value>
   </metadata>
-  <data name="CooldownPropOCRRateTrack.ToolTip" xml:space="preserve">
-    <value>The rate in ms at which OCR is performed.
-This affects how frequently the OCR engine will 
-attempt to retrieve a cooldown value when skill is used.
-A lower value will be more CPU intensive.
-A higher value will be less accurate.
-Default: 100</value>
+  <data name="DebugMultiButton.ToolTip" xml:space="preserve">
+    <value>After using a skill, click this to perform a multi debug process of 
+the OCR engine to ensure that the rectangle region 
+and dots are set correctly.
+The OCR engine will run until it returns a value above 
+the confidence threshold or iteration count exceeds 1000.
+You can also stop the process by clicking this button again.
+This will output some data to the textbox above and 
+also create a debug image folder in the application directory.
+Note: Only the first iteration will save images.</value>
   </data>
-  <metadata name="AppearanceTab0.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="DPIResolutionComboBox.ToolTip" xml:space="preserve">
-    <value>You should only need to touch this if you're using 
-desktop scaling and it could not be detected automatically.
-Select the same resolution that the game is set to in 
-this box, then adjust the scaling with the slider.
-You can also use this to scale up values from a template 
-if your in-game resolution is the same aspect ratio.</value>
-  </data>
-  <data name="DPIScaleTrack.ToolTip" xml:space="preserve">
-    <value>You should only need to touch this if you're using 
-desktop scaling and it could not be detected or if 
-your in-game resolution is the same aspect ratio as one
-of the templates.
-After modifying this, save config before making 
-changes on the Manual Setup tab.</value>
-  </data>
-  <data name="CooldownPropConfTrack.ToolTip" xml:space="preserve">
-    <value>This determines how confident the OCR engine needs to be
-about an assumed cooldown detected.
-In most cases, accurate and fast results are produced at
-around 80% confidence.
-A lower value may result in cooldown being read incorrectly.
-A higher value will delay the cooldown output because the
-engine will continue to attempt reading until it's more confident.
-Default: 80%</value>
-  </data>
-  <data name="CooldownPropTickTrack.ToolTip" xml:space="preserve">
-    <value>The rate in ms at which frames are updated.
-This affects calculation of cooldown and
-how frequently the bars are updated.
-A lower value will be more CPU/GPU intensive.
-A higher value will be less accurate.
-Default: 10</value>
-  </data>
-  <data name="CooldownPropPauseTrack.ToolTip" xml:space="preserve">
-    <value>An amount in seconds to subtract the cooldown by 
-whenever the game state is paused.
-This is necessary because the actual cooldown starts 
-updating after an unpause before it can be re-detected.
-Default: 1</value>
-  </data>
-  <data name="CooldownPropOverrideTrack.ToolTip" xml:space="preserve">
-    <value>The max cooldown time in seconds to assume as overridable.
-Eg. For Fischl, when you use her skill it starts a 2sec cooldown.
-So this override should be set to 2.0
-For multi-party events, override will be ignored if the 
-character in the same slot as Fischl has a skill which 
-starts a cooldown above 2sec.
-Default: 2</value>
-  </data>
-  <data name="CooldownPropReapplyTrack.ToolTip" xml:space="preserve">
-    <value>The minimum remaining cooldown time in seconds 
-before attempting to use a skill will trigger 
-cooldown detection.
-This is to make up for situations where the actual 
-cooldown finishes before the assumed cooldown.
-This should not be more than Override.
-Default: 1</value>
-  </data>
-  <data name="CooldownPropOffsetTrack.ToolTip" xml:space="preserve">
-    <value>An amount to offset the assumed cooldown by in seconds.
-This may be necessary if you find the bar completing 
-before/after the cooldown is actually complete.
-A positive value will add to while negative will subtract.
-Default: 0</value>
-  </data>
-  <data name="AutoButton.ToolTip" xml:space="preserve">
-    <value>Automatically set values depending on current game resolution.
-By default, only supports up to 1920x1080.
-Other resolutions can be added to GenshinOverlay.Templates.ini
-Newly added resolutions will require you to save config then reopen.</value>
-  </data>
-  <data name="LabelCooldownOverrideL0.ToolTip" xml:space="preserve">
-    <value>Allows you to set a specific value for skill cooldown for each character.
-This is necessary for characters like Fischl where the actual cooldown doesn't 
-start when the skill key is pressed and may only start after switching characters.
-
-A value of 0 will disable override.
-An override value should be no less than the minimum defined
-by the "Override" property below.</value>
+  <data name="DebugButton.ToolTip" xml:space="preserve">
+    <value>After using a skill, click this to perform a debug process of 
+the OCR engine to ensure that the rectangle region 
+and dots are set correctly.
+The OCR engine will run once, returning a value 
+ignoring the confidence threshold.
+This will output some data to the textbox above and 
+also create a debug image folder in the application directory.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -1910,25 +1835,13 @@ by the "Override" property below.</value>
   <metadata name="MStyleExtender.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>143, 17</value>
   </metadata>
-  <data name="DebugButton.ToolTip" xml:space="preserve">
-    <value>After using a skill, click this to perform a debug process of 
-the OCR engine to ensure that the rectangle region 
-and dots are set correctly.
-The OCR engine will run once, returning a value 
-ignoring the confidence threshold.
-This will output some data to the textbox above and 
-also create a debug image folder in the application directory.</value>
-  </data>
-  <data name="DebugMultiButton.ToolTip" xml:space="preserve">
-    <value>After using a skill, click this to perform a multi debug process of 
-the OCR engine to ensure that the rectangle region 
-and dots are set correctly.
-The OCR engine will run until it returns a value above 
-the confidence threshold or iteration count exceeds 1000.
-You can also stop the process by clicking this button again.
-This will output some data to the textbox above and 
-also create a debug image folder in the application directory.
-Note: Only the first iteration will save images.</value>
+  <data name="CooldownPropOCRRateTrack.ToolTip" xml:space="preserve">
+    <value>The rate in ms at which OCR is performed.
+This affects how frequently the OCR engine will 
+attempt to retrieve a cooldown value when skill is used.
+A lower value will be more CPU intensive.
+A higher value will be less accurate.
+Default: 100</value>
   </data>
   <data name="CooldownBarsYOffsetTrack.ToolTip" xml:space="preserve">
     <value>The Y position offset for bars 2, 3 and 4 from bar 1.
@@ -1995,6 +1908,99 @@ To make sure you have set this up correctly, set "Sel. Offset" to
 something different and save configuration, and then try switching character.
 You should see the position of the bar for the selected character move.</value>
   </data>
+  <data name="DPIResolutionComboBox.ToolTip" xml:space="preserve">
+    <value>You should only need to touch this if you're using 
+desktop scaling and it could not be detected automatically.
+Select the same resolution that the game is set to in 
+this box, then adjust the scaling with the slider.
+You can also use this to scale up values from a template 
+if your in-game resolution is the same aspect ratio.</value>
+  </data>
+  <data name="DPIScaleTrack.ToolTip" xml:space="preserve">
+    <value>You should only need to touch this if you're using 
+desktop scaling and it could not be detected or if 
+your in-game resolution is the same aspect ratio as one
+of the templates.
+After modifying this, save config before making 
+changes on the Manual Setup tab.</value>
+  </data>
+  <data name="CooldownPropConfTrack.ToolTip" xml:space="preserve">
+    <value>This determines how confident the OCR engine needs to be
+about an assumed cooldown detected.
+In most cases, accurate and fast results are produced at
+around 80% confidence.
+A lower value may result in cooldown being read incorrectly.
+A higher value will delay the cooldown output because the
+engine will continue to attempt reading until it's more confident.
+Default: 80%</value>
+  </data>
+  <data name="CooldownPropTickTrack.ToolTip" xml:space="preserve">
+    <value>The rate in ms at which frames are updated.
+This affects calculation of cooldown and
+how frequently the bars are updated.
+A lower value will be more CPU/GPU intensive.
+A higher value will be less accurate.
+Default: 10</value>
+  </data>
+  <data name="CooldownPropPauseTrack.ToolTip" xml:space="preserve">
+    <value>An amount in seconds to subtract the cooldown by 
+whenever the game state is paused.
+This is necessary because the actual cooldown starts 
+updating after an unpause before it can be re-detected.
+Default: 1</value>
+  </data>
+  <data name="CooldownPropOverrideTrack.ToolTip" xml:space="preserve">
+    <value>The max cooldown time in seconds to assume as overridable.
+Eg. For Fischl, when you use her skill it starts a 2sec cooldown.
+So this override should be set to 2.0
+For multi-party events, override will be ignored if the 
+character in the same slot as Fischl has a skill which 
+starts a cooldown above 2sec.
+Default: 2</value>
+  </data>
+  <data name="CooldownPropReapplyTrack.ToolTip" xml:space="preserve">
+    <value>The minimum remaining cooldown time in seconds 
+before attempting to use a skill will trigger 
+cooldown detection.
+This is to make up for situations where the actual 
+cooldown finishes before the assumed cooldown.
+This should not be more than Override.
+Default: 1</value>
+  </data>
+  <data name="CooldownPropOffsetTrack.ToolTip" xml:space="preserve">
+    <value>An amount to offset the assumed cooldown by in seconds.
+This may be necessary if you find the bar completing 
+before/after the cooldown is actually complete.
+A positive value will add to while negative will subtract.
+Default: 0</value>
+  </data>
+  <data name="AutoButton.ToolTip" xml:space="preserve">
+    <value>Automatically set values depending on current game resolution.
+By default, only supports up to 1920x1080.
+Other resolutions can be added to GenshinOverlay.Templates.ini
+Newly added resolutions will require you to save config then reopen.</value>
+  </data>
+  <data name="LabelCooldownOverrideL0.ToolTip" xml:space="preserve">
+    <value>Allows you to set a specific value for skill cooldown for each character.
+This is necessary for characters like Fischl where the actual cooldown doesn't 
+start when the skill key is pressed and may only start after switching characters.
+
+A value of 0 will disable override.
+An override value should be no less than the minimum defined
+by the "Override" property below.</value>
+  </data>
+  <data name="metroLabel2.ToolTip" xml:space="preserve">
+    <value>Allows you to set a specific value for skill cooldown for each character.
+This is necessary for characters like Fischl where the actual cooldown doesn't 
+start when the skill key is pressed and may only start after switching characters.
+
+A value of 0 will disable override.
+An override value should be no less than the minimum defined
+by the "Override" property below.</value>
+  </data>
+  <metadata name="AppearanceTab0.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="AppearanceTab0.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
